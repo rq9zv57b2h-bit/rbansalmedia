@@ -335,10 +335,10 @@ async function fetchThumbnail(post, index) {
 
     if (data.status === 'success' && data.data) {
       const imgUrl =
-        (data.data.image && data.data.image.url) ||
         (data.data.screenshot && data.data.screenshot.url) ||
+        (data.data.image && data.data.image.url) ||
         null;
-      const fallbackUrl = (data.data.screenshot && data.data.screenshot.url) || null;
+      const fallbackUrl = (data.data.image && data.data.image.url) || null;
 
       if (imgUrl) {
         const card = grid.querySelector(`[data-index="${index}"]`);

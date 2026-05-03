@@ -155,6 +155,64 @@
   @keyframes shimmer { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
   .fade-in-section { opacity: 0; transform: translateY(40px); transition: opacity 0.8s ease, transform 0.8s ease; }
   .fade-in-section.visible { opacity: 1; transform: translateY(0); }
+
+  .quote-block { padding: 64px 48px; text-align: center; border-top: 1px solid rgba(242,240,235,0.06); position: relative; }
+
+  /* ─── TABLET ──────────────────────────────────────────────────────── */
+  @media (max-width: 1024px) {
+    .about { gap: 48px; padding: 100px 40px; }
+    .services-grid { grid-template-columns: repeat(2, 1fr); }
+    .section { padding: 100px 40px; }
+    .contact { padding: 120px 40px; }
+    .quote-block { padding: 64px 40px; }
+  }
+
+  /* ─── MOBILE ──────────────────────────────────────────────────────── */
+  @media (max-width: 768px) {
+    .cursor, .cursor-ring { display: none; }
+    body { cursor: auto; }
+
+    nav { padding: 20px 24px; }
+    .nav-links { display: none; }
+    .nav-ig { padding: 7px 14px; font-size: 11px; }
+
+    .hero { padding: 0 24px 72px; min-height: 100svh; }
+    .hero-sub { flex-direction: column; align-items: flex-start; gap: 24px; }
+    .scroll-line { display: none; }
+
+    .section { padding: 72px 24px; }
+    .section-header { flex-direction: column; gap: 12px; margin-bottom: 40px; }
+
+    .video-grid { grid-template-columns: 1fr 1fr; gap: 8px; }
+    .video-card:nth-child(1) { grid-column: span 2; aspect-ratio: 16/9; }
+    .video-card:nth-child(2) { grid-column: span 1; grid-row: span 1; aspect-ratio: 1/1; }
+    .video-card:nth-child(3) { grid-column: span 1; aspect-ratio: 1/1; }
+    .video-card:nth-child(4) { grid-column: span 1; aspect-ratio: 1/1; }
+    .video-card:nth-child(5) { grid-column: span 1; aspect-ratio: 1/1; }
+    .video-card:nth-child(6) { grid-column: span 1; aspect-ratio: 1/1; }
+    .video-card:nth-child(7) { grid-column: span 2; aspect-ratio: 16/9; }
+    .video-overlay { opacity: 1; background: linear-gradient(to top, rgba(8,8,8,0.88) 0%, transparent 55%); }
+    .play-badge { opacity: 1; }
+
+    .ig-bar { flex-direction: column; gap: 16px; padding: 20px 24px; }
+    .ig-bar p { font-size: 12px; }
+
+    .about { grid-template-columns: 1fr; gap: 40px; padding: 72px 24px; }
+    .about-visual { aspect-ratio: 3/2; }
+    .stats { gap: 20px; }
+    .stat-num { font-size: 40px; }
+
+    .services-grid { grid-template-columns: 1fr; }
+    .service-card { padding: 36px 24px; }
+
+    .quote-block { padding: 56px 24px; }
+
+    .contact { padding: 80px 24px; }
+    .contact-links { flex-direction: column; align-items: stretch; }
+    .contact-btn { text-align: center; padding: 18px 24px; }
+
+    footer { padding: 24px; flex-direction: column; align-items: center; gap: 16px; text-align: center; }
+  }
 </style>
 </head>
 <body>
@@ -250,7 +308,7 @@
   </div>
 </section>
 
-<div style="padding: 64px 48px; text-align:center; border-top: 1px solid rgba(242,240,235,0.06); position:relative;">
+<div class="quote-block">
   <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" style="opacity:0.12; margin-bottom:20px;">
     <line x1="8" y1="0" x2="8" y2="16" stroke="#e8ff3c" stroke-width="1.5"/>
     <line x1="1" y1="5" x2="15" y2="5" stroke="#e8ff3c" stroke-width="1.5"/>

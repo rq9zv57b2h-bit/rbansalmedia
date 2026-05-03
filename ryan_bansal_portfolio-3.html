@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ryan Bansal — Sports Videographer</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+  :root { --black: #080808; --white: #f2f0eb; --accent: #e8ff3c; --mid: #1a1a1a; --muted: #555; }
+  html { scroll-behavior: smooth; }
+  body { background: var(--black); color: var(--white); font-family: 'DM Sans', sans-serif; font-weight: 300; overflow-x: hidden; cursor: none; }
+
+  .cursor { position: fixed; width: 10px; height: 10px; background: var(--accent); border-radius: 50%; pointer-events: none; z-index: 9999; transform: translate(-50%, -50%); }
+  .cursor-ring { position: fixed; width: 36px; height: 36px; border: 1px solid rgba(232,255,60,0.4); border-radius: 50%; pointer-events: none; z-index: 9998; transform: translate(-50%, -50%); }
+
+  nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 28px 48px; display: flex; justify-content: space-between; align-items: center; background: linear-gradient(to bottom, rgba(8,8,8,0.95) 0%, transparent 100%); }
+  .logo { font-family: 'Bebas Neue', sans-serif; font-size: 22px; letter-spacing: 0.12em; color: var(--white); text-decoration: none; }
+  .logo span { color: var(--accent); }
+  .nav-links { display: flex; gap: 40px; list-style: none; }
+  .nav-links a { font-size: 12px; letter-spacing: 0.15em; text-transform: uppercase; color: rgba(242,240,235,0.55); text-decoration: none; transition: color 0.25s; }
+  .nav-links a:hover { color: var(--accent); }
+  .nav-ig { font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(242,240,235,0.4); text-decoration: none; border: 1px solid rgba(242,240,235,0.15); padding: 8px 18px; border-radius: 2px; transition: all 0.25s; }
+  .nav-ig:hover { border-color: var(--accent); color: var(--accent); }
+
+  .hero { min-height: 100vh; display: flex; flex-direction: column; justify-content: flex-end; padding: 0 48px 80px; position: relative; overflow: hidden; }
+  .hero-bg { position: absolute; inset: 0; background: radial-gradient(ellipse at 70% 40%, rgba(232,255,60,0.04) 0%, transparent 60%), radial-gradient(ellipse at 20% 80%, rgba(232,255,60,0.03) 0%, transparent 50%); }
+  .hero-noise { position: absolute; inset: 0; opacity: 0.035; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E"); background-size: 200px; }
+  .hero-eyebrow { font-size: 11px; letter-spacing: 0.25em; text-transform: uppercase; color: var(--accent); margin-bottom: 20px; opacity: 0; animation: fadeUp 0.8s 0.3s forwards; }
+  .hero-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(72px, 12vw, 160px); line-height: 0.92; letter-spacing: 0.02em; opacity: 0; animation: fadeUp 0.9s 0.5s forwards; }
+  .hero-title .outline { -webkit-text-stroke: 1px rgba(242,240,235,0.25); color: transparent; }
+  .hero-sub { margin-top: 32px; display: flex; align-items: flex-end; justify-content: space-between; opacity: 0; animation: fadeUp 0.9s 0.75s forwards; }
+  .hero-desc { font-size: 15px; line-height: 1.7; color: rgba(242,240,235,0.5); max-width: 380px; }
+  .hero-cta { display: flex; align-items: center; gap: 16px; text-decoration: none; color: var(--accent); font-size: 13px; letter-spacing: 0.12em; text-transform: uppercase; transition: gap 0.3s; }
+  .hero-cta:hover { gap: 24px; }
+  .hero-cta .arrow { width: 40px; height: 1px; background: var(--accent); position: relative; }
+  .hero-cta .arrow::after { content: ''; position: absolute; right: 0; top: -3px; width: 7px; height: 7px; border-right: 1px solid var(--accent); border-top: 1px solid var(--accent); transform: rotate(45deg); }
+
+  .scroll-line { position: absolute; right: 48px; bottom: 80px; display: flex; flex-direction: column; align-items: center; gap: 12px; opacity: 0; animation: fadeIn 1s 1.2s forwards; }
+  .scroll-line span { font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); writing-mode: vertical-rl; }
+  .scroll-line .line { width: 1px; height: 60px; background: linear-gradient(to bottom, var(--muted), transparent); animation: scrollPulse 2s ease-in-out infinite; }
+
+  .marquee-wrap { border-top: 1px solid rgba(242,240,235,0.06); border-bottom: 1px solid rgba(242,240,235,0.06); padding: 18px 0; overflow: hidden; background: var(--mid); }
+  .marquee-track { display: flex; animation: marquee 18s linear infinite; white-space: nowrap; }
+  .marquee-item { font-family: 'Bebas Neue', sans-serif; font-size: 13px; letter-spacing: 0.2em; color: rgba(242,240,235,0.2); padding: 0 48px; }
+  .marquee-item.accent { color: var(--accent); opacity: 0.7; }
+
+  .section { padding: 120px 48px; }
+  .section-header { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 64px; }
+  .section-label { font-size: 10px; letter-spacing: 0.25em; text-transform: uppercase; color: var(--accent); margin-bottom: 12px; }
+  .section-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(36px, 5vw, 64px); letter-spacing: 0.04em; line-height: 1; }
+  .section-count { font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); }
+
+  /* VIDEO GRID */
+  .video-grid { display: grid; grid-template-columns: repeat(12, 1fr); gap: 16px; }
+  .video-card { position: relative; overflow: hidden; background: var(--mid); cursor: none; display: block; text-decoration: none; }
+  .video-card:nth-child(1) { grid-column: span 8; aspect-ratio: 16/9; }
+  .video-card:nth-child(2) { grid-column: span 4; aspect-ratio: 9/16; grid-row: span 2; }
+  .video-card:nth-child(3) { grid-column: span 4; aspect-ratio: 16/9; }
+  .video-card:nth-child(4) { grid-column: span 4; aspect-ratio: 16/9; }
+  .video-card:nth-child(5) { grid-column: span 6; aspect-ratio: 16/9; }
+  .video-card:nth-child(6) { grid-column: span 6; aspect-ratio: 16/9; }
+
+  .video-thumb {
+    width: 100%; height: 100%;
+    object-fit: cover; display: block;
+    transition: transform 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94), filter 0.4s;
+    filter: saturate(0.8) brightness(0.9);
+  }
+  .video-card:hover .video-thumb { transform: scale(1.06); filter: saturate(1) brightness(1); }
+
+  /* Skeleton loader */
+  .video-skeleton {
+    width: 100%; height: 100%;
+    background: linear-gradient(90deg, #1a1a1a 25%, #252525 50%, #1a1a1a 75%);
+    background-size: 200% 100%;
+    animation: shimmer 1.5s infinite;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .skeleton-icon { opacity: 0.15; }
+
+  .video-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(8,8,8,0.92) 0%, rgba(8,8,8,0.2) 50%, transparent 100%); opacity: 0; transition: opacity 0.4s; display: flex; align-items: flex-end; padding: 24px; }
+  .video-card:hover .video-overlay { opacity: 1; }
+  .video-meta { display: flex; flex-direction: column; gap: 4px; }
+  .video-tag { font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent); }
+  .video-title { font-family: 'Bebas Neue', sans-serif; font-size: 22px; letter-spacing: 0.05em; line-height: 1; color: var(--white); }
+
+  /* Play badge */
+  .play-badge {
+    position: absolute; top: 16px; right: 16px;
+    width: 36px; height: 36px;
+    background: rgba(8,8,8,0.7);
+    border: 1px solid rgba(242,240,235,0.15);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    opacity: 0; transition: opacity 0.3s;
+    backdrop-filter: blur(4px);
+  }
+  .video-card:hover .play-badge { opacity: 1; }
+
+  /* Error state */
+  .video-error {
+    width: 100%; height: 100%;
+    background: #111;
+    display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px;
+  }
+  .video-error span { font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); }
+
+  .ig-bar { margin-top: 48px; padding: 24px 32px; border: 1px solid rgba(242,240,235,0.07); background: rgba(242,240,235,0.02); display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+  .ig-bar p { font-size: 13px; color: rgba(242,240,235,0.4); line-height: 1.6; }
+  .ig-bar a { flex-shrink: 0; font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--accent); text-decoration: none; border: 1px solid rgba(232,255,60,0.3); padding: 12px 24px; transition: all 0.25s; white-space: nowrap; }
+  .ig-bar a:hover { background: rgba(232,255,60,0.1); }
+
+  .about { padding: 120px 48px; display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; border-top: 1px solid rgba(242,240,235,0.06); }
+  .about-visual { position: relative; aspect-ratio: 4/5; overflow: hidden; }
+  .about-inner-visual { width: 100%; height: 100%; background: linear-gradient(145deg, #111 0%, #1c1c1c 100%); display: flex; align-items: center; justify-content: center; }
+  .about-initials { font-family: 'Bebas Neue', sans-serif; font-size: 96px; color: rgba(242,240,235,0.08); letter-spacing: 0.1em; }
+  .about-accent-bar { position: absolute; left: 0; top: 40px; width: 4px; height: 60px; background: var(--accent); z-index: 1; }
+  .about-content .label { margin-bottom: 24px; }
+  .about-content h2 { font-family: 'Bebas Neue', sans-serif; font-size: clamp(40px, 4vw, 56px); letter-spacing: 0.04em; line-height: 1.05; margin-bottom: 32px; }
+  .about-content p { font-size: 15px; line-height: 1.85; color: rgba(242,240,235,0.55); margin-bottom: 16px; }
+  .stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; margin-top: 56px; padding-top: 40px; border-top: 1px solid rgba(242,240,235,0.08); }
+  .stat-num { font-family: 'Bebas Neue', sans-serif; font-size: 48px; letter-spacing: 0.04em; color: var(--accent); line-height: 1; }
+  .stat-label { font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); margin-top: 4px; }
+
+  .services-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: rgba(242,240,235,0.06); border: 1px solid rgba(242,240,235,0.06); }
+  .service-card { background: var(--black); padding: 48px 40px; transition: background 0.3s; position: relative; overflow: hidden; }
+  .service-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: var(--accent); transform: scaleX(0); transform-origin: left; transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94); }
+  .service-card:hover { background: rgba(232,255,60,0.02); }
+  .service-card:hover::before { transform: scaleX(1); }
+  .service-num { font-family: 'Bebas Neue', sans-serif; font-size: 13px; letter-spacing: 0.2em; color: rgba(232,255,60,0.4); margin-bottom: 32px; }
+  .service-title { font-family: 'Bebas Neue', sans-serif; font-size: 28px; letter-spacing: 0.06em; margin-bottom: 16px; }
+  .service-desc { font-size: 13px; line-height: 1.8; color: rgba(242,240,235,0.4); }
+
+  .contact { padding: 140px 48px; text-align: center; border-top: 1px solid rgba(242,240,235,0.06); position: relative; overflow: hidden; }
+  .contact::before { content: 'CONTACT'; font-family: 'Bebas Neue', sans-serif; font-size: clamp(80px, 18vw, 240px); color: rgba(242,240,235,0.02); position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); white-space: nowrap; letter-spacing: 0.1em; pointer-events: none; }
+  .contact-label { margin-bottom: 24px; }
+  .contact h2 { font-family: 'Bebas Neue', sans-serif; font-size: clamp(48px, 7vw, 96px); letter-spacing: 0.04em; line-height: 0.95; margin-bottom: 48px; }
+  .contact h2 .outline { -webkit-text-stroke: 1px rgba(242,240,235,0.3); color: transparent; }
+  .contact-links { display: flex; gap: 20px; justify-content: center; flex-wrap: wrap; }
+  .contact-btn { font-size: 12px; letter-spacing: 0.15em; text-transform: uppercase; text-decoration: none; padding: 16px 40px; transition: all 0.3s; }
+  .contact-btn.primary { background: var(--accent); color: var(--black); font-weight: 500; }
+  .contact-btn.primary:hover { background: #fff; }
+  .contact-btn.secondary { border: 1px solid rgba(242,240,235,0.15); color: rgba(242,240,235,0.6); }
+  .contact-btn.secondary:hover { border-color: var(--accent); color: var(--accent); }
+
+  footer { padding: 32px 48px; border-top: 1px solid rgba(242,240,235,0.06); display: flex; justify-content: space-between; align-items: center; }
+  footer p { font-size: 11px; letter-spacing: 0.1em; color: rgba(242,240,235,0.2); }
+
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+  @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+  @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+  @keyframes scrollPulse { 0%, 100% { opacity: 0.3; } 50% { opacity: 1; } }
+  @keyframes shimmer { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
+  .fade-in-section { opacity: 0; transform: translateY(40px); transition: opacity 0.8s ease, transform 0.8s ease; }
+  .fade-in-section.visible { opacity: 1; transform: translateY(0); }
+</style>
+</head>
+<body>
+
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<nav>
+  <a href="#" class="logo">RYAN<span>.</span>BANSAL</a>
+  <ul class="nav-links">
+    <li><a href="#work">Work</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <a href="https://instagram.com/bansal_ryan" target="_blank" class="nav-ig">@bansal_ryan</a>
+</nav>
+
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-noise"></div>
+  <div class="scroll-line"><span>Scroll</span><div class="line"></div></div>
+  <p class="hero-eyebrow">Sports Videographer · Sydney, Australia</p>
+  <h1 class="hero-title">FRAME<br><span class="outline">EVERY</span><br>MOMENT.</h1>
+  <div class="hero-sub">
+    <p class="hero-desc">Short &amp; long form content for athletes, teams and brands. Using the gift of craft to tell stories that matter.</p>
+    <a href="#work" class="hero-cta">View Work <span class="arrow"></span></a>
+  </div>
+</section>
+
+<div class="marquee-wrap">
+  <div class="marquee-track">
+    <span class="marquee-item">Sports Videography</span><span class="marquee-item accent">✦</span>
+    <span class="marquee-item">Short Form Content</span><span class="marquee-item accent">✦</span>
+    <span class="marquee-item">Brand Films</span><span class="marquee-item accent">✦</span>
+    <span class="marquee-item">Athlete Reels</span><span class="marquee-item accent">✦</span>
+    <span class="marquee-item">Team Highlights</span><span class="marquee-item accent">✦</span>
+    <span class="marquee-item">Long Form Documentary</span><span class="marquee-item accent">✦</span>
+    <span class="marquee-item">Sports Videography</span><span class="marquee-item accent">✦</span>
+    <span class="marquee-item">Short Form Content</span><span class="marquee-item accent">✦</span>
+    <span class="marquee-item">Brand Films</span><span class="marquee-item accent">✦</span>
+    <span class="marquee-item">Athlete Reels</span><span class="marquee-item accent">✦</span>
+    <span class="marquee-item">Team Highlights</span><span class="marquee-item accent">✦</span>
+    <span class="marquee-item">Long Form Documentary</span><span class="marquee-item accent">✦</span>
+  </div>
+</div>
+
+<section class="section" id="work">
+  <div class="section-header fade-in-section">
+    <div><p class="section-label">Selected Work</p><h2 class="section-title">THE REEL</h2></div>
+    <span class="section-count">Instagram · @bansal_ryan</span>
+  </div>
+
+  <div class="video-grid fade-in-section" id="videoGrid">
+    <!-- Cards injected by JS -->
+  </div>
+
+  <div class="ig-bar fade-in-section">
+    <p>Thumbnails pulled live from <strong>@bansal_ryan</strong> via Instagram Open Graph metadata.</p>
+    <a href="https://instagram.com/bansal_ryan" target="_blank">View Instagram ↗</a>
+  </div>
+</section>
+
+<section class="about fade-in-section" id="about">
+  <div class="about-visual">
+    <div class="about-accent-bar"></div>
+    <div class="about-inner-visual"><span class="about-initials">RB</span></div>
+  </div>
+  <div class="about-content">
+    <p class="section-label label">About</p>
+    <h2>CREATED TO<br>CREATE.</h2>
+    <p>I'm Ryan Bansal — a sports videographer based in Sydney, Australia. I believe every person has a story worth telling, and that the camera is one of the most powerful tools to tell it.</p>
+    <p>Driven by faith and a love for the game, I craft content for athletes, teams and brands that goes beyond the highlight — capturing the purpose behind the pursuit.</p>
+    <div class="stats">
+      <div><div class="stat-num">50+</div><div class="stat-label">Projects</div></div>
+      <div><div class="stat-num">∞</div><div class="stat-label">Stories Told</div></div>
+      <div><div class="stat-num">4K</div><div class="stat-label">Production</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="section fade-in-section" id="services">
+  <div class="section-header">
+    <div><p class="section-label">What I Do</p><h2 class="section-title">SERVICES</h2></div>
+  </div>
+  <div class="services-grid">
+    <div class="service-card"><div class="service-num">01</div><div class="service-title">Short Form Content</div><p class="service-desc">Reels, TikToks, and social clips engineered for maximum impact. Built for the scroll.</p></div>
+    <div class="service-card"><div class="service-num">02</div><div class="service-title">Athlete Highlights</div><p class="service-desc">Personal highlight reels that get athletes noticed — by scouts, fans, and brands.</p></div>
+    <div class="service-card"><div class="service-num">03</div><div class="service-title">Team Coverage</div><p class="service-desc">Game day footage, season recaps, and behind-the-scenes team content.</p></div>
+    <div class="service-card"><div class="service-num">04</div><div class="service-title">Brand Campaigns</div><p class="service-desc">Sport-first brand films and campaign content that connects with active audiences.</p></div>
+    <div class="service-card"><div class="service-num">05</div><div class="service-title">Long Form Docs</div><p class="service-desc">Full documentary-style productions that go deep on stories worth telling.</p></div>
+    <div class="service-card"><div class="service-num">06</div><div class="service-title">Event Coverage</div><p class="service-desc">Tournaments, launches, activations — captured and cut for immediate impact.</p></div>
+  </div>
+</section>
+
+<div style="padding: 64px 48px; text-align:center; border-top: 1px solid rgba(242,240,235,0.06); position:relative;">
+  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" style="opacity:0.12; margin-bottom:20px;">
+    <line x1="8" y1="0" x2="8" y2="16" stroke="#e8ff3c" stroke-width="1.5"/>
+    <line x1="1" y1="5" x2="15" y2="5" stroke="#e8ff3c" stroke-width="1.5"/>
+  </svg>
+  <p style="font-family:'Bebas Neue',sans-serif; font-size:clamp(18px,2.5vw,28px); letter-spacing:0.15em; color:rgba(242,240,235,0.1); text-transform:uppercase; line-height:1.6; max-width:700px; margin:0 auto;">
+    "Whatever you do, work at it with all your heart"
+  </p>
+  <p style="font-size:10px; letter-spacing:0.2em; text-transform:uppercase; color:rgba(242,240,235,0.08); margin-top:12px;">Colossians 3:23</p>
+</div>
+
+<section class="contact fade-in-section" id="contact">
+  <p class="section-label contact-label">Get In Touch</p>
+  <h2>LET'S<br><span class="outline">CREATE</span><br>TOGETHER.</h2>
+  <div class="contact-links">
+    <a href="mailto:Bansal.ryan77@gmail.com" class="contact-btn primary">Send an Email</a>
+    <a href="https://instagram.com/bansal_ryan" target="_blank" class="contact-btn secondary">DM on Instagram</a>
+  </div>
+</section>
+
+<footer>
+  <a href="#" class="logo">RYAN<span>.</span>BANSAL</a>
+  <div style="display:flex; flex-direction:column; align-items:center; gap:6px;">
+    <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg" style="opacity:0.2;">
+      <line x1="7" y1="0" x2="7" y2="14" stroke="#f2f0eb" stroke-width="1.5"/>
+      <line x1="1" y1="4.5" x2="13" y2="4.5" stroke="#f2f0eb" stroke-width="1.5"/>
+    </svg>
+    <p style="font-size:9px; letter-spacing:0.15em; color:rgba(242,240,235,0.15);">Col 3:23</p>
+  </div>
+  <p>© 2026 · Sports Videography · Sydney, Australia</p>
+</footer>
+
+<script>
+// ─── CONFIG: your posts ───────────────────────────────────────────────
+const POSTS = [
+  { url: 'https://www.instagram.com/p/DX0UZotStLm/', tag: 'Match Day',   title: 'Sydney · 27.10.25' },
+  { url: 'https://www.instagram.com/p/DXJPcDqPgZx/', tag: 'Brand',       title: 'Spiderverse x NBA' },
+  { url: 'https://www.instagram.com/p/DQThzbQAq3F/', tag: 'Football',    title: 'On The Ball' },
+  { url: 'https://www.instagram.com/p/DTdW0-TApUw/', tag: 'Event',       title: 'Street Sports Festival' },
+  { url: 'https://www.instagram.com/p/DLzoXC8iKgq/', tag: 'Short Form',  title: 'Full Send' },
+  { url: 'https://www.instagram.com/p/DIA3x7FiBCK/', tag: 'Athlete',     title: 'The Ones' },
+];
+
+// ─── BUILD SKELETON CARDS ─────────────────────────────────────────────
+const grid = document.getElementById('videoGrid');
+
+POSTS.forEach((post, i) => {
+  const card = document.createElement('a');
+  card.className = 'video-card';
+  card.href = post.url;
+  card.target = '_blank';
+  card.dataset.index = i;
+  card.innerHTML = `
+    <div class="video-skeleton">
+      <svg class="skeleton-icon" width="32" height="32" viewBox="0 0 32 32" fill="none">
+        <rect x="2" y="2" width="28" height="28" rx="2" stroke="white" stroke-width="1.5"/>
+        <polygon points="12,10 24,16 12,22" fill="white"/>
+      </svg>
+    </div>
+    <div class="play-badge">
+      <svg width="10" height="12" viewBox="0 0 10 12" fill="none">
+        <path d="M1 1L9 6L1 11V1Z" fill="rgba(242,240,235,0.8)"/>
+      </svg>
+    </div>
+    <div class="video-overlay">
+      <div class="video-meta">
+        <span class="video-tag">${post.tag}</span>
+        <span class="video-title">${post.title}</span>
+      </div>
+    </div>
+  `;
+  grid.appendChild(card);
+});
+
+// ─── FETCH OG THUMBNAILS VIA MICROLINK ───────────────────────────────
+async function fetchThumbnail(post, index) {
+  const apiUrl = `https://api.microlink.io/?url=${encodeURIComponent(post.url)}&screenshot=false`;
+
+  try {
+    const res = await fetch(apiUrl);
+    const data = await res.json();
+
+    if (data.status === 'success' && data.data) {
+      const imgUrl =
+        (data.data.image && data.data.image.url) ||
+        (data.data.screenshot && data.data.screenshot.url) ||
+        null;
+
+      if (imgUrl) {
+        const card = grid.querySelector(`[data-index="${index}"]`);
+        const skeleton = card.querySelector('.video-skeleton');
+        const img = document.createElement('img');
+        img.className = 'video-thumb';
+        img.alt = post.title;
+        img.src = imgUrl;
+        img.onload = () => {
+          skeleton.replaceWith(img);
+        };
+        img.onerror = () => showError(card);
+      } else {
+        const card = grid.querySelector(`[data-index="${index}"]`);
+        showError(card);
+      }
+    }
+  } catch (err) {
+    const card = grid.querySelector(`[data-index="${index}"]`);
+    showError(card);
+  }
+}
+
+function showError(card) {
+  const skeleton = card.querySelector('.video-skeleton');
+  if (skeleton) {
+    skeleton.innerHTML = `
+      <div class="video-error">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+          <rect x="2" y="2" width="20" height="20" rx="2" stroke="rgba(242,240,235,0.2)" stroke-width="1.5"/>
+          <path d="M8 12h8M12 8v8" stroke="rgba(242,240,235,0.2)" stroke-width="1.5"/>
+        </svg>
+        <span>Open on Instagram</span>
+      </div>
+    `;
+    skeleton.className = '';
+  }
+}
+
+// Stagger fetches so we don't hammer the API
+POSTS.forEach((post, i) => {
+  setTimeout(() => fetchThumbnail(post, i), i * 300);
+});
+
+// ─── CURSOR ───────────────────────────────────────────────────────────
+const cursor = document.getElementById('cursor');
+const ring = document.getElementById('cursorRing');
+let mx = 0, my = 0, rx = 0, ry = 0;
+document.addEventListener('mousemove', e => {
+  mx = e.clientX; my = e.clientY;
+  cursor.style.left = mx + 'px';
+  cursor.style.top = my + 'px';
+});
+(function animateRing() {
+  rx += (mx - rx) * 0.12;
+  ry += (my - ry) * 0.12;
+  ring.style.left = rx + 'px';
+  ring.style.top = ry + 'px';
+  requestAnimationFrame(animateRing);
+})();
+
+// ─── SCROLL REVEAL ────────────────────────────────────────────────────
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.1 });
+document.querySelectorAll('.fade-in-section').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>

@@ -385,42 +385,30 @@ POSTS.forEach((post, i) => {
 
 // ─── FETCH OG THUMBNAILS VIA MICROLINK ───────────────────────────────
 async function fetchThumbnail(post, index) {
-  const apiUrl = `https://api.microlink.io/?url=${encodeURIComponent(post.url)}&screenshot=true`;
+  const apiUrl = `https://api.microlink.io/?url=${encodeURIComponent(post.url)}&screenshot=false`;
 
   try {
     const res = await fetch(apiUrl);
     const data = await res.json();
 
     if (data.status === 'success' && data.data) {
-      const imgUrl =
-        (data.data.screenshot && data.data.screenshot.url) ||
-        (data.data.image && data.data.image.url) ||
-        null;
-      const fallbackUrl = (data.data.image && data.data.image.url) || null;
+      const rawUrl = data.data.image && data.data.image.url;
 
-      if (imgUrl) {
+      if (rawUrl) {
         const card = grid.querySelector(`[data-index="${index}"]`);
         const skeleton = card.querySelector('.video-skeleton');
         const img = document.createElement('img');
         img.className = 'video-thumb';
         img.alt = post.title;
-        img.src = imgUrl;
+        img.src = `https://images.weserv.nl/?url=${encodeURIComponent(rawUrl)}`;
         img.onload = () => { skeleton.replaceWith(img); };
-        img.onerror = () => {
-          if (fallbackUrl && img.src !== fallbackUrl) {
-            img.src = fallbackUrl;
-          } else {
-            showError(card);
-          }
-        };
+        img.onerror = () => showError(card);
       } else {
-        const card = grid.querySelector(`[data-index="${index}"]`);
-        showError(card);
+        showError(grid.querySelector(`[data-index="${index}"]`));
       }
     }
   } catch (err) {
-    const card = grid.querySelector(`[data-index="${index}"]`);
-    showError(card);
+    showError(grid.querySelector(`[data-index="${index}"]`));
   }
 }
 

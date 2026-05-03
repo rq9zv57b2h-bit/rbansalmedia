@@ -327,7 +327,7 @@ POSTS.forEach((post, i) => {
 
 // ─── FETCH OG THUMBNAILS VIA MICROLINK ───────────────────────────────
 async function fetchThumbnail(post, index) {
-  const apiUrl = `https://api.microlink.io/?url=${encodeURIComponent(post.url)}&screenshot=false`;
+  const apiUrl = `https://api.microlink.io/?url=${encodeURIComponent(post.url)}&screenshot=true`;
 
   try {
     const res = await fetch(apiUrl);
@@ -338,6 +338,7 @@ async function fetchThumbnail(post, index) {
         (data.data.image && data.data.image.url) ||
         (data.data.screenshot && data.data.screenshot.url) ||
         null;
+      const fallbackUrl = (data.data.screenshot && data.data.screenshot.url) || null;
 
       if (imgUrl) {
         const card = grid.querySelector(`[data-index="${index}"]`);
@@ -346,10 +347,14 @@ async function fetchThumbnail(post, index) {
         img.className = 'video-thumb';
         img.alt = post.title;
         img.src = imgUrl;
-        img.onload = () => {
-          skeleton.replaceWith(img);
+        img.onload = () => { skeleton.replaceWith(img); };
+        img.onerror = () => {
+          if (fallbackUrl && img.src !== fallbackUrl) {
+            img.src = fallbackUrl;
+          } else {
+            showError(card);
+          }
         };
-        img.onerror = () => showError(card);
       } else {
         const card = grid.querySelector(`[data-index="${index}"]`);
         showError(card);

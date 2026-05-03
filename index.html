@@ -145,8 +145,8 @@
   .contact-btn.secondary { border: 1px solid rgba(242,240,235,0.15); color: rgba(242,240,235,0.6); }
   .contact-btn.secondary:hover { border-color: var(--accent); color: var(--accent); }
 
-  footer { padding: 32px 48px; border-top: 1px solid rgba(242,240,235,0.06); display: flex; justify-content: space-between; align-items: center; }
-  footer p { font-size: 11px; letter-spacing: 0.1em; color: rgba(242,240,235,0.2); }
+  footer { padding: 32px 48px; border-top: 1px solid rgba(242,240,235,0.06); display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; }
+  footer p { font-size: 11px; letter-spacing: 0.1em; color: rgba(242,240,235,0.2); justify-self: end; text-align: right; }
 
   @keyframes fadeUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
   @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
@@ -335,7 +335,7 @@
 </section>
 
 <div class="quote-block">
-  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" style="opacity:0.12; margin-bottom:20px;">
+  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" style="opacity:0.12; display:block; margin:0 auto 20px;">
     <line x1="8" y1="0" x2="8" y2="16" stroke="#e8ff3c" stroke-width="1.5"/>
     <line x1="1" y1="5" x2="15" y2="5" stroke="#e8ff3c" stroke-width="1.5"/>
   </svg>

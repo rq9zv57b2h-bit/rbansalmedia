@@ -3,484 +3,575 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Ryan Bansal — Sports Videographer</title>
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
+<title>Take One — Ryan Bansal, Sports Videographer, Sydney</title>
+<meta name="description" content="Ryan Bansal films football, basketball and the brands around them in Sydney. Short and long form content for athletes, teams and brands.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Michroma&family=Roboto+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<script>document.documentElement.classList.add('js')</script>
 <style>
+  :root {
+    --bg: #0a0505;
+    --paper: #2b2b2b;
+    --ink: #e9e9e9;
+    --muted: rgba(233, 233, 233, 0.55);
+    --line: rgba(233, 233, 233, 0.16);
+    --accent: #c41616;
+    --night: #000;
+    --night-line: rgba(233, 233, 233, 0.16);
+
+    --display: 'Michroma', 'Eurostile', sans-serif;
+    --mono: 'Roboto Mono', ui-monospace, Menlo, monospace;
+    --step-label: 0.6875rem;
+    --step-small: 0.8125rem;
+    --step-body: 0.9375rem;
+    --step-h2: clamp(1.75rem, 1rem + 2.2vw, 3.25rem);
+    --step-h1: clamp(1.875rem, 0.9rem + 2.9vw, 4rem);
+
+    --margin: clamp(20px, 3vw, 44px);
+    --inset: 16px;
+    --gap-section: clamp(96px, 10vw, 160px);
+
+    --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+    --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  }
+
   *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-  :root { --black: #080808; --white: #f2f0eb; --accent: #e8ff3c; --mid: #1a1a1a; --muted: #555; }
-  html { scroll-behavior: smooth; }
-  body { background: var(--black); color: var(--white); font-family: 'DM Sans', sans-serif; font-weight: 300; overflow-x: hidden; cursor: none; }
-
-  .cursor { position: fixed; width: 10px; height: 10px; background: var(--accent); border-radius: 50%; pointer-events: none; z-index: 9999; transform: translate(-50%, -50%); }
-  .cursor-ring { position: fixed; width: 36px; height: 36px; border: 1px solid rgba(232,255,60,0.4); border-radius: 50%; pointer-events: none; z-index: 9998; transform: translate(-50%, -50%); }
-
-  nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 28px 48px; display: flex; justify-content: space-between; align-items: center; background: linear-gradient(to bottom, rgba(8,8,8,0.95) 0%, transparent 100%); }
-  .logo { font-family: 'Bebas Neue', sans-serif; font-size: 22px; letter-spacing: 0.12em; color: var(--white); text-decoration: none; }
-  .logo span { color: var(--accent); }
-  .nav-links { display: flex; gap: 40px; list-style: none; }
-  .nav-links a { font-size: 12px; letter-spacing: 0.15em; text-transform: uppercase; color: rgba(242,240,235,0.55); text-decoration: none; transition: color 0.25s; }
-  .nav-links a:hover { color: var(--accent); }
-  .nav-ig { font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(242,240,235,0.4); text-decoration: none; border: 1px solid rgba(242,240,235,0.15); padding: 8px 18px; border-radius: 2px; transition: all 0.25s; }
-  .nav-ig:hover { border-color: var(--accent); color: var(--accent); }
-
-  .hero { min-height: 100vh; display: flex; flex-direction: column; justify-content: flex-end; padding: 0 48px 80px; position: relative; overflow: hidden; }
-  .hero-bg { position: absolute; inset: 0; background: radial-gradient(ellipse at 70% 40%, rgba(232,255,60,0.04) 0%, transparent 60%), radial-gradient(ellipse at 20% 80%, rgba(232,255,60,0.03) 0%, transparent 50%); }
-  .hero-noise { position: absolute; inset: 0; opacity: 0.035; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E"); background-size: 200px; }
-  .hero-eyebrow { font-size: 11px; letter-spacing: 0.25em; text-transform: uppercase; color: var(--accent); margin-bottom: 20px; opacity: 0; animation: fadeUp 0.8s 0.3s forwards; }
-  .hero-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(72px, 12vw, 160px); line-height: 0.92; letter-spacing: 0.02em; opacity: 0; animation: fadeUp 0.9s 0.5s forwards; }
-  .hero-title .outline { -webkit-text-stroke: 1px rgba(242,240,235,0.25); color: transparent; }
-  .hero-sub { margin-top: 32px; display: flex; align-items: flex-end; justify-content: space-between; opacity: 0; animation: fadeUp 0.9s 0.75s forwards; }
-  .hero-desc { font-size: 15px; line-height: 1.7; color: rgba(242,240,235,0.5); max-width: 380px; }
-  .hero-cta { display: flex; align-items: center; gap: 16px; text-decoration: none; color: var(--accent); font-size: 13px; letter-spacing: 0.12em; text-transform: uppercase; transition: gap 0.3s; }
-  .hero-cta:hover { gap: 24px; }
-  .hero-cta .arrow { width: 40px; height: 1px; background: var(--accent); position: relative; }
-  .hero-cta .arrow::after { content: ''; position: absolute; right: 0; top: -3px; width: 7px; height: 7px; border-right: 1px solid var(--accent); border-top: 1px solid var(--accent); transform: rotate(45deg); }
-
-  .scroll-line { position: absolute; right: 48px; bottom: 80px; display: flex; flex-direction: column; align-items: center; gap: 12px; opacity: 0; animation: fadeIn 1s 1.2s forwards; }
-  .scroll-line span { font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); writing-mode: vertical-rl; }
-  .scroll-line .line { width: 1px; height: 60px; background: linear-gradient(to bottom, var(--muted), transparent); animation: scrollPulse 2s ease-in-out infinite; }
-
-  .marquee-wrap { border-top: 1px solid rgba(242,240,235,0.06); border-bottom: 1px solid rgba(242,240,235,0.06); padding: 18px 0; overflow: hidden; background: var(--mid); }
-  .marquee-track { display: flex; animation: marquee 18s linear infinite; white-space: nowrap; }
-  .marquee-item { font-family: 'Bebas Neue', sans-serif; font-size: 13px; letter-spacing: 0.2em; color: rgba(242,240,235,0.2); padding: 0 48px; }
-  .marquee-item.accent { color: var(--accent); opacity: 0.7; }
-
-  .section { padding: 120px 48px; }
-  .section-header { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 64px; }
-  .section-label { font-size: 10px; letter-spacing: 0.25em; text-transform: uppercase; color: var(--accent); margin-bottom: 12px; }
-  .section-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(36px, 5vw, 64px); letter-spacing: 0.04em; line-height: 1; }
-  .section-count { font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); }
-
-  /* VIDEO GRID */
-  .video-grid { display: grid; grid-template-columns: repeat(12, 1fr); gap: 16px; }
-  .video-card { position: relative; overflow: hidden; background: var(--mid); cursor: none; display: block; text-decoration: none; }
-  .video-card:nth-child(1) { grid-column: span 8; aspect-ratio: 16/9; }
-  .video-card:nth-child(2) { grid-column: span 4; aspect-ratio: 9/16; grid-row: span 2; }
-  .video-card:nth-child(3) { grid-column: span 4; aspect-ratio: 16/9; }
-  .video-card:nth-child(4) { grid-column: span 4; aspect-ratio: 16/9; }
-  .video-card:nth-child(5) { grid-column: span 4; aspect-ratio: 16/9; }
-  .video-card:nth-child(6) { grid-column: span 4; aspect-ratio: 16/9; }
-  .video-card:nth-child(7) { grid-column: span 4; aspect-ratio: 16/9; }
-
-  .video-thumb {
-    width: 100%; height: 100%;
-    object-fit: cover; display: block;
-    transition: transform 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94), filter 0.4s;
-    filter: saturate(0.8) brightness(0.9);
+  html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+  body {
+    background: var(--night); color: var(--ink);
+    font-family: var(--mono); font-size: var(--step-body); line-height: 1.55;
+    -webkit-font-smoothing: antialiased; overflow-x: hidden;
   }
-  .video-card:hover .video-thumb { transform: scale(1.06); filter: saturate(1) brightness(1); }
+  img { display: block; max-width: 100%; height: auto; }
+  a { color: inherit; }
+  ::selection { background: var(--accent); color: #fff; }
+  :focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
 
-  /* Skeleton loader */
-  .video-skeleton {
-    width: 100%; height: 100%;
-    background: linear-gradient(90deg, #1a1a1a 25%, #252525 50%, #1a1a1a 75%);
-    background-size: 200% 100%;
-    animation: shimmer 1.5s infinite;
-    display: flex; align-items: center; justify-content: center;
-  }
-  .skeleton-icon { opacity: 0.15; }
+  /* type roles */
+  .label { font: 500 var(--step-label)/1.45 var(--mono); letter-spacing: 0.08em; text-transform: uppercase; }
+  .label em { font-style: normal; color: var(--accent); }
+  .display { font-family: var(--display); font-weight: 400; text-transform: uppercase; line-height: 1.05; letter-spacing: 0; -webkit-text-stroke: 0.025em currentColor; }
+  .h2 { font-size: var(--step-h2); }
 
-  .video-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(8,8,8,0.92) 0%, rgba(8,8,8,0.2) 50%, transparent 100%); opacity: 0; transition: opacity 0.4s; display: flex; align-items: flex-end; padding: 24px; }
-  .video-card:hover .video-overlay { opacity: 1; }
-  .video-meta { display: flex; flex-direction: column; gap: 4px; }
-  .video-tag { font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent); }
-  .video-title { font-family: 'Bebas Neue', sans-serif; font-size: 22px; letter-spacing: 0.05em; line-height: 1; color: var(--white); }
+  .link { text-decoration: underline; text-decoration-color: transparent; text-underline-offset: 0.25em; transition: text-decoration-color 200ms ease, color 200ms ease; }
+  @media (hover: hover) and (pointer: fine) { .link:hover { text-decoration-color: currentColor; } }
 
-  /* Play badge */
-  .play-badge {
-    position: absolute; top: 16px; right: 16px;
-    width: 36px; height: 36px;
-    background: rgba(8,8,8,0.7);
-    border: 1px solid rgba(242,240,235,0.15);
-    border-radius: 50%;
-    display: flex; align-items: center; justify-content: center;
-    opacity: 0; transition: opacity 0.3s;
-    backdrop-filter: blur(4px);
-  }
-  .video-card:hover .play-badge { opacity: 1; }
-
-  /* Error state */
-  .video-error {
-    width: 100%; height: 100%;
-    background: #111;
-    display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px;
-  }
-  .video-error span { font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); }
-
-  .ig-bar { margin-top: 48px; padding: 24px 32px; border: 1px solid rgba(242,240,235,0.07); background: rgba(242,240,235,0.02); display: flex; align-items: center; justify-content: space-between; gap: 24px; }
-  .ig-bar p { font-size: 13px; color: rgba(242,240,235,0.4); line-height: 1.6; }
-  .ig-bar a { flex-shrink: 0; font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--accent); text-decoration: none; border: 1px solid rgba(232,255,60,0.3); padding: 12px 24px; transition: all 0.25s; white-space: nowrap; }
-  .ig-bar a:hover { background: rgba(232,255,60,0.1); }
-
-  .about { padding: 120px 48px; display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; border-top: 1px solid rgba(242,240,235,0.06); }
-  .about-visual { position: relative; aspect-ratio: 4/5; overflow: hidden; }
-  .about-inner-visual { width: 100%; height: 100%; background: linear-gradient(145deg, #111 0%, #1c1c1c 100%); display: flex; align-items: center; justify-content: center; }
-  .about-initials { font-family: 'Bebas Neue', sans-serif; font-size: 96px; color: rgba(242,240,235,0.08); letter-spacing: 0.1em; }
-  .about-accent-bar { position: absolute; left: 0; top: 40px; width: 4px; height: 60px; background: var(--accent); z-index: 1; }
-  .about-content .label { margin-bottom: 24px; }
-  .about-content h2 { font-family: 'Bebas Neue', sans-serif; font-size: clamp(40px, 4vw, 56px); letter-spacing: 0.04em; line-height: 1.05; margin-bottom: 32px; }
-  .about-content p { font-size: 15px; line-height: 1.85; color: rgba(242,240,235,0.55); margin-bottom: 16px; }
-  .stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; margin-top: 56px; padding-top: 40px; border-top: 1px solid rgba(242,240,235,0.08); }
-  .stat-num { font-family: 'Bebas Neue', sans-serif; font-size: 48px; letter-spacing: 0.04em; color: var(--accent); line-height: 1; }
-  .stat-label { font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); margin-top: 4px; }
-
-  .services-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: rgba(242,240,235,0.06); border: 1px solid rgba(242,240,235,0.06); }
-  .service-card { background: var(--black); padding: 48px 40px; transition: background 0.3s; position: relative; overflow: hidden; }
-  .service-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: var(--accent); transform: scaleX(0); transform-origin: left; transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94); }
-  .service-card:hover { background: rgba(232,255,60,0.02); }
-  .service-card:hover::before { transform: scaleX(1); }
-  .service-num { font-family: 'Bebas Neue', sans-serif; font-size: 13px; letter-spacing: 0.2em; color: rgba(232,255,60,0.4); margin-bottom: 32px; }
-  .service-title { font-family: 'Bebas Neue', sans-serif; font-size: 28px; letter-spacing: 0.06em; margin-bottom: 16px; }
-  .service-desc { font-size: 13px; line-height: 1.8; color: rgba(242,240,235,0.4); }
-
-  .contact { padding: 140px 48px; text-align: center; border-top: 1px solid rgba(242,240,235,0.06); position: relative; overflow: hidden; }
-  .contact::before { content: 'CONTACT'; font-family: 'Bebas Neue', sans-serif; font-size: clamp(80px, 18vw, 240px); color: rgba(242,240,235,0.02); position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); white-space: nowrap; letter-spacing: 0.1em; pointer-events: none; }
-  .contact-label { margin-bottom: 24px; }
-  .contact h2 { font-family: 'Bebas Neue', sans-serif; font-size: clamp(48px, 7vw, 96px); letter-spacing: 0.04em; line-height: 0.95; margin-bottom: 48px; }
-  .contact h2 .outline { -webkit-text-stroke: 1px rgba(242,240,235,0.3); color: transparent; }
-  .contact-links { display: flex; gap: 20px; justify-content: center; flex-wrap: wrap; }
-  .contact-btn { font-size: 12px; letter-spacing: 0.15em; text-transform: uppercase; text-decoration: none; padding: 16px 40px; transition: all 0.3s; }
-  .contact-btn.primary { background: var(--accent); color: var(--black); font-weight: 500; }
-  .contact-btn.primary:hover { background: #fff; }
-  .contact-btn.secondary { border: 1px solid rgba(242,240,235,0.15); color: rgba(242,240,235,0.6); }
-  .contact-btn.secondary:hover { border-color: var(--accent); color: var(--accent); }
-
-  footer { padding: 32px 48px; border-top: 1px solid rgba(242,240,235,0.06); display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; }
-  footer p { font-size: 11px; letter-spacing: 0.1em; color: rgba(242,240,235,0.2); justify-self: end; text-align: right; }
-
-  @keyframes fadeUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
-  @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-  @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
-  @keyframes scrollPulse { 0%, 100% { opacity: 0.3; } 50% { opacity: 1; } }
-  @keyframes shimmer { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
-  .fade-in-section { opacity: 0; transform: translateY(40px); transition: opacity 0.8s ease, transform 0.8s ease; }
-  .fade-in-section.visible { opacity: 1; transform: translateY(0); }
-
-  .quote-block { padding: 64px 48px; text-align: center; border-top: 1px solid rgba(242,240,235,0.06); position: relative; }
-
-  .trusted { padding: 40px 48px; border-bottom: 1px solid rgba(242,240,235,0.06); display: flex; align-items: center; gap: 48px; }
-  .trusted-label { font-size: 10px; letter-spacing: 0.25em; text-transform: uppercase; color: var(--muted); white-space: nowrap; flex-shrink: 0; }
-  .trusted-divider { width: 1px; height: 32px; background: rgba(242,240,235,0.08); flex-shrink: 0; }
-  .trusted-logos { display: flex; align-items: center; gap: 48px; flex-wrap: wrap; }
-  .trusted-logo { height: 28px; width: auto; filter: brightness(0) invert(1); opacity: 0.35; transition: opacity 0.3s; }
-  .trusted-logo:hover { opacity: 0.75; }
-
-  /* ─── RESPONSIVE: TRUSTED ────────────────────────────────────────── */
-  @media (max-width: 768px) {
-    .trusted { flex-direction: column; align-items: flex-start; gap: 24px; padding: 32px 24px; }
-    .trusted-divider { display: none; }
-    .trusted-logos { gap: 32px; }
-    .trusted-logo { height: 22px; }
+  /* corner brackets around a box */
+  .brackets {
+    --c: var(--ink); --s: 10px;
+    background:
+      linear-gradient(var(--c), var(--c)) top left / var(--s) 1px,
+      linear-gradient(var(--c), var(--c)) top left / 1px var(--s),
+      linear-gradient(var(--c), var(--c)) top right / var(--s) 1px,
+      linear-gradient(var(--c), var(--c)) top right / 1px var(--s),
+      linear-gradient(var(--c), var(--c)) bottom left / var(--s) 1px,
+      linear-gradient(var(--c), var(--c)) bottom left / 1px var(--s),
+      linear-gradient(var(--c), var(--c)) bottom right / var(--s) 1px,
+      linear-gradient(var(--c), var(--c)) bottom right / 1px var(--s);
+    background-repeat: no-repeat;
   }
 
-  /* ─── TABLET ──────────────────────────────────────────────────────── */
-  @media (max-width: 1024px) {
-    .about { gap: 48px; padding: 100px 40px; }
-    .services-grid { grid-template-columns: repeat(2, 1fr); }
-    .section { padding: 100px 40px; }
-    .contact { padding: 120px 40px; }
-    .quote-block { padding: 64px 40px; }
+  /* chips + buttons */
+  .chip, .button {
+    display: inline-flex; align-items: center; gap: 28px; min-height: 40px; padding: 0 14px;
+    font: 500 var(--step-label)/1 var(--mono); letter-spacing: 0.1em; text-transform: uppercase;
+    text-decoration: none; white-space: nowrap; transition: transform 120ms var(--ease-out), background-color 200ms ease, color 200ms ease;
+  }
+  .chip, .button { justify-content: space-between; }
+  .chip::after, .button::after { content: '+'; color: var(--accent); font-size: 1rem; line-height: 1; }
+  .chip { background: var(--paper); color: var(--ink); box-shadow: 0 0 0 1px var(--line); }
+  .button { background: var(--paper); color: var(--ink); }
+  .button::after { background: var(--accent); color: #fff; width: 16px; height: 16px; display: grid; place-items: center; font-size: 0.8rem; }
+  .chip:active, .button:active { transform: scale(0.97); }
+  @media (hover: hover) and (pointer: fine) {
+    .chip:hover { background: var(--ink); color: #000; }
+    .button:hover { background: var(--accent); color: #fff; }
+    .button:hover::after { background: #000; }
   }
 
-  /* ─── MOBILE ──────────────────────────────────────────────────────── */
-  @media (max-width: 768px) {
-    .cursor, .cursor-ring { display: none; }
-    body { cursor: auto; }
+  /* tick ruler */
+  .ruler {
+    height: 14px; position: relative;
+    background:
+      linear-gradient(var(--ink), var(--ink)) 0 50% / 100% 1px no-repeat,
+      repeating-linear-gradient(90deg, var(--ink) 0 1px, transparent 1px 12px) 0 100% / 100% 5px no-repeat;
+  }
+  .ruler::before, .ruler::after { content: ''; position: absolute; top: 0; width: 1px; height: 100%; background: var(--accent); }
+  .ruler::before { left: 0; } .ruler::after { right: 0; }
 
-    nav { padding: 20px 24px; }
-    .nav-links { display: none; }
-    .nav-ig { padding: 7px 14px; font-size: 11px; }
+  /* ─── NAV: floats over everything ───────────────────────────────── */
+  .nav {
+    position: fixed; z-index: 50; top: 0; left: 0; right: 0; height: 96px;
+    display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; padding: 0 var(--margin);
+    font: 500 0.875rem/1 var(--mono); text-transform: uppercase; letter-spacing: 0.02em;
+    background: linear-gradient(rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 0));
+    -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px);
+    -webkit-mask: linear-gradient(#000 70%, transparent); mask: linear-gradient(#000 70%, transparent);
+  }
+  .nav ul { display: flex; gap: 44px; list-style: none; }
+  .nav a { text-decoration: none; }
+  .nav .right { justify-self: end; display: flex; align-items: center; gap: 44px; }
+  .hover-line { position: relative; }
+  .hover-line::after {
+    content: ''; position: absolute; left: 0; right: 0; bottom: -3px; height: 1px; background: currentColor;
+    transform: scaleX(0); transform-origin: right; transition: transform 300ms var(--ease-out);
+  }
+  @media (hover: hover) and (pointer: fine) { .hover-line:hover::after { transform: scaleX(1); transform-origin: left; } }
 
-    .hero { padding: 0 24px 72px; min-height: 100svh; }
-    .hero-sub { flex-direction: column; align-items: flex-start; gap: 24px; }
-    .scroll-line { display: none; }
+  /* the mark: a viewfinder with a recording dot */
+  .mark {
+    --c: var(--ink);
+    display: grid; place-items: center; width: 52px; height: 30px;
+    background:
+      linear-gradient(var(--c), var(--c)) top left / 9px 3px, linear-gradient(var(--c), var(--c)) top left / 3px 9px,
+      linear-gradient(var(--c), var(--c)) top right / 9px 3px, linear-gradient(var(--c), var(--c)) top right / 3px 9px,
+      linear-gradient(var(--c), var(--c)) bottom left / 9px 3px, linear-gradient(var(--c), var(--c)) bottom left / 3px 9px,
+      linear-gradient(var(--c), var(--c)) bottom right / 9px 3px, linear-gradient(var(--c), var(--c)) bottom right / 3px 9px;
+    background-repeat: no-repeat;
+  }
+  .mark::before { content: ''; width: 8px; height: 8px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 10px var(--accent); }
+  @media (prefers-reduced-motion: no-preference) { .mark::before { animation: rec 1.6s steps(1) infinite; } }
+  @keyframes rec { 50% { opacity: 0.15; } }
 
-    .section { padding: 72px 24px; }
-    .section-header { flex-direction: column; gap: 12px; margin-bottom: 40px; }
+  .pill {
+    display: inline-flex; align-items: center; gap: 14px; height: 34px; padding: 0 22px 0 16px; white-space: nowrap;
+    background: var(--paper); color: var(--ink); border-radius: 999px;
+    transition: background-color 200ms ease, transform 120ms var(--ease-out);
+  }
+  .pill svg { width: 15px; height: 15px; transition: transform 300ms var(--ease-out); }
+  .pill:active { transform: scale(0.97); }
+  @media (hover: hover) and (pointer: fine) {
+    .pill:hover { background: var(--accent); }
+    .pill:hover svg { transform: translateX(3px); }
+  }
 
-    .video-grid { grid-template-columns: 1fr 1fr; gap: 8px; }
-    .video-card:nth-child(1) { grid-column: span 2; aspect-ratio: 16/9; }
-    .video-card:nth-child(2) { grid-column: span 1; grid-row: span 1; aspect-ratio: 1/1; }
-    .video-card:nth-child(3) { grid-column: span 1; aspect-ratio: 1/1; }
-    .video-card:nth-child(4) { grid-column: span 1; aspect-ratio: 1/1; }
-    .video-card:nth-child(5) { grid-column: span 1; aspect-ratio: 1/1; }
-    .video-card:nth-child(6) { grid-column: span 1; aspect-ratio: 1/1; }
-    .video-card:nth-child(7) { grid-column: span 2; aspect-ratio: 16/9; }
-    .video-overlay { opacity: 1; background: linear-gradient(to top, rgba(8,8,8,0.88) 0%, transparent 55%); }
-    .play-badge { opacity: 1; }
+  /* ─── HERO: one full screen, name in the middle ──────────────────── */
+  .hero {
+    position: relative; height: 100svh; min-height: 560px; overflow: hidden;
+    display: grid; place-items: center; text-align: center;
+    background:
+      radial-gradient(120% 90% at 100% 100%, #5a0909 0%, rgba(90, 9, 9, 0) 60%),
+      radial-gradient(90% 80% at 85% 10%, #3d0606 0%, rgba(61, 6, 6, 0) 70%),
+      linear-gradient(100deg, #0b0101 0%, #1d0303 45%, #3a0505 100%);
+  }
+  .hero::before {
+    content: ''; position: absolute; inset: 0; pointer-events: none;
+    background: repeating-linear-gradient(0deg, rgba(255, 255, 255, 0.018) 0 1px, transparent 1px 4px);
+  }
+  .hero::after {
+    content: ''; position: absolute; inset: -50%; pointer-events: none; opacity: 0.1;
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.55 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+  @media (prefers-reduced-motion: no-preference) { .hero::after { animation: grain 0.9s steps(4) infinite; } }
+  @keyframes grain {
+    0%, 100% { transform: translate(0, 0); } 25% { transform: translate(-3%, 2%); }
+    50% { transform: translate(2%, -3%); } 75% { transform: translate(-1%, 3%); }
+  }
+  .ghost {
+    position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%);
+    font: 400 clamp(4rem, 12.5vw, 13rem)/1 var(--display); color: rgba(0, 0, 0, 0.32); white-space: nowrap;
+    filter: blur(3px); user-select: none; pointer-events: none;
+  }
+  .title { position: relative; z-index: 1; display: grid; justify-items: center; gap: 18px; padding: 0 var(--margin); }
+  .title h1 {
+    position: relative; font: 400 clamp(2rem, 1.3rem + 2.4vw, 3.25rem)/1 var(--display); color: #fff;
+    -webkit-text-stroke: 0.07em #fff; paint-order: stroke fill;
+  }
+  .title h1 i { font-style: normal; color: var(--accent); -webkit-text-stroke-color: var(--accent); letter-spacing: -0.18em; margin-right: 0.18em; }
+  .title h1::before, .title h1::after {
+    content: attr(data-text); position: absolute; inset: 0; color: #fff; pointer-events: none;
+  }
+  .title h1::before { transform: scaleX(1.32); opacity: 0.3; filter: blur(5px); }
+  .title h1::after { transform: scaleX(1.15); opacity: 0.45; filter: blur(2px); }
+  .title p { font: 500 0.875rem/1.4 var(--mono); text-transform: uppercase; letter-spacing: 0.02em; color: rgba(233, 233, 233, 0.82); }
+  .explore {
+    position: absolute; z-index: 1; left: 50%; bottom: max(120px, 17svh); transform: translateX(-50%);
+    display: grid; justify-items: center; gap: 10px; text-decoration: none;
+    font: 500 1rem/1 var(--mono); text-transform: uppercase;
+  }
+  .explore svg { width: 20px; height: 20px; }
+  @media (prefers-reduced-motion: no-preference) {
+    .explore svg { animation: nudge 2.2s var(--ease-out) infinite; }
+    .js .title > * { opacity: 0; animation: up 1100ms var(--ease-out) forwards; }
+    .js .title > :nth-child(2) { animation-delay: 160ms; }
+    .js .explore { opacity: 0; animation: up-x 1100ms var(--ease-out) 420ms forwards; }
+    .js .ghost { opacity: 0; animation: fade 2200ms ease 200ms forwards; }
+  }
+  @keyframes nudge { 0%, 60%, 100% { transform: none; } 30% { transform: translateY(5px); } }
+  @keyframes up { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
+  @keyframes up-x { from { opacity: 0; transform: translate(-50%, 14px); } to { opacity: 1; transform: translateX(-50%); } }
+  @keyframes fade { to { opacity: 1; } }
 
-    .ig-bar { flex-direction: column; gap: 16px; padding: 20px 24px; }
-    .ig-bar p { font-size: 12px; }
+  .sheet { background: var(--bg); position: relative; }
 
-    .about { grid-template-columns: 1fr; gap: 40px; padding: 72px 24px; }
-    .about-visual { aspect-ratio: 3/2; }
-    .stats { gap: 20px; }
-    .stat-num { font-size: 40px; }
+  /* ─── SECTION HEAD: cropped giant index + code line ──────────────── */
+  .section { padding: 0 var(--margin) var(--gap-section); }
+  .sec-head { display: grid; grid-template-columns: auto 1fr; gap: 0 32px; align-items: end; margin-bottom: 56px; }
+  .num {
+    font: 400 clamp(5rem, 11vw, 10rem)/0.74 var(--display); letter-spacing: -0.02em; -webkit-text-stroke: 0.04em currentColor;
+    height: 0.68em; overflow: hidden; display: block; margin-top: -1px;
+  }
+  .sec-head .code { color: var(--muted); padding-bottom: 6px; border-bottom: 1px solid var(--line); }
+  .sec-head .code em { float: right; }
 
-    .services-grid { grid-template-columns: 1fr; }
-    .service-card { padding: 36px 24px; }
+  /* ─── WORK ───────────────────────────────────────────────────────── */
+  .work { position: relative; padding-top: clamp(72px, 7vw, 112px); }
+  .work-grid { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: 56px; }
+  .ledger-head { display: flex; justify-content: space-between; align-items: end; gap: 24px; margin-bottom: 20px; }
+  .filters { display: flex; gap: 6px; }
+  .filters button {
+    background: none; border: 1px solid transparent; padding: 8px 10px; cursor: pointer;
+    font: 500 var(--step-label)/1 var(--mono); letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted);
+    transition: color 200ms ease, border-color 200ms ease;
+  }
+  .filters button[aria-pressed="true"] { color: var(--ink); border-color: var(--ink); }
+  @media (hover: hover) and (pointer: fine) { .filters button:hover { color: var(--ink); } }
 
-    .quote-block { padding: 56px 24px; }
+  .ledger { list-style: none; border-top: 1px solid var(--ink); counter-reset: film; }
+  .ledger li { border-bottom: 1px solid var(--line); counter-increment: film; }
+  .ledger li[hidden] { display: none; }
+  .ledger a {
+    display: grid; grid-template-columns: 3.25rem minmax(0, 1fr) 11rem 5.5rem; column-gap: 16px; align-items: baseline;
+    min-height: 64px; padding: 14px 0; text-decoration: none; transition: color 200ms ease, padding 300ms var(--ease-out);
+  }
+  .ledger a::before { content: counter(film, decimal-leading-zero); font: 500 var(--step-label)/1 var(--mono); color: var(--accent); }
+  .ledger .name { font: 400 clamp(1rem, 0.75rem + 0.8vw, 1.5rem)/1.2 var(--display); text-transform: uppercase; -webkit-text-stroke: 0.02em currentColor; }
+  .ledger .kind, .ledger .date { font: 500 var(--step-label)/1.3 var(--mono); letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); }
+  .ledger .date { text-align: right; }
+  @media (hover: hover) and (pointer: fine) {
+    .ledger.is-hovering a { color: var(--muted); }
+    .ledger.is-hovering a.is-active { color: var(--ink); padding-left: 10px; }
+  }
 
-    .contact { padding: 80px 24px; }
-    .contact-links { flex-direction: column; align-items: stretch; }
-    .contact-btn { text-align: center; padding: 18px 24px; }
+  .preview { position: sticky; top: 32px; align-self: start; padding: 14px; }
+  .preview .frame { position: relative; background: #000; aspect-ratio: 16 / 10; overflow: hidden; }
+  .preview img { width: 100%; height: 100%; object-fit: cover; filter: grayscale(1) contrast(1.1); transition: opacity 250ms ease; }
+  .preview img[hidden] { display: none; }
+  .preview .tag { position: absolute; left: 12px; bottom: 12px; padding: 6px 8px; background: rgba(0, 0, 0, 0.7); color: var(--ink); }
+  .preview .coords { display: flex; justify-content: space-between; margin-top: 12px; color: var(--muted); }
+  .work-note { margin-top: 28px; font-size: var(--step-small); color: var(--muted); }
+  .work-note a { color: var(--ink); }
 
-    footer { padding: 24px; flex-direction: column; align-items: center; gap: 16px; text-align: center; }
+  /* ─── ABOUT ──────────────────────────────────────────────────────── */
+  .about-grid { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 56px; }
+  .about-title { font-size: var(--step-h2); }
+  .about-title + .label { margin-top: 24px; color: var(--muted); max-width: 32ch; }
+  .bio p { font-size: var(--step-body); max-width: 52ch; }
+  .bio p:first-child { font: 400 clamp(1.25rem, 0.9rem + 1vw, 1.875rem)/1.25 var(--display); text-transform: uppercase; margin-bottom: 24px; max-width: 24ch; color: #fff; }
+  .bio q { color: var(--accent); }
+  .facts { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 40px; }
+  .facts li { list-style: none; padding: 12px 14px; font-size: var(--step-small); }
+  .facts span { display: block; color: var(--muted); margin-bottom: 4px; }
+  .records { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin-top: 56px; }
+  .records h3 { font-weight: 500; margin-bottom: 10px; padding-bottom: 8px; border-bottom: 1px solid var(--ink); }
+  .records ul { list-style: none; font-size: var(--step-small); }
+  .records li { display: flex; justify-content: space-between; gap: 16px; padding: 9px 0; border-bottom: 1px solid var(--line); }
+  .records li span:last-child { color: var(--muted); text-align: right; }
+
+  /* ─── SERVICES ───────────────────────────────────────────────────── */
+  .services-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 56px; }
+  .group { display: flex; justify-content: space-between; padding-bottom: 8px; border-bottom: 1px solid var(--ink); }
+  .group em { font-style: normal; color: var(--accent); }
+  .rows { list-style: none; }
+  .rows li { display: grid; grid-template-columns: 1fr auto; gap: 24px; align-items: baseline; padding: 18px 0; border-bottom: 1px solid var(--line); }
+  .rows .what { font: 400 clamp(1rem, 0.75rem + 0.8vw, 1.5rem)/1.2 var(--display); text-transform: uppercase; -webkit-text-stroke: 0.02em currentColor; }
+  .rows .what small { display: block; font: 400 var(--step-small)/1.5 var(--mono); text-transform: none; color: var(--muted); margin-top: 8px; }
+  .rows .eg { color: var(--muted); text-align: right; white-space: nowrap; }
+  .rows .eg a { color: var(--ink); }
+
+  /* ─── CONTACT ────────────────────────────────────────────────────── */
+  .contact { position: relative; overflow: hidden; padding: var(--gap-section) var(--margin) 40px; border-top: 1px solid var(--line); }
+  .contact-big { font: 400 clamp(2.5rem, 9.6vw, 11rem)/0.9 var(--display); color: var(--accent); -webkit-text-stroke: 0.04em var(--accent); text-transform: uppercase; white-space: nowrap; }
+  .contact-row { display: flex; justify-content: space-between; align-items: end; gap: 32px; margin-top: 40px; }
+  .contact-row p { max-width: 34ch; font-size: var(--step-small); }
+  .contact-actions { display: flex; gap: 12px; flex-wrap: wrap; }
+
+  /* ─── FOOTER ─────────────────────────────────────────────────────── */
+  footer {
+    display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 24px;
+    padding: 22px var(--margin) 26px; color: var(--muted);
+  }
+  footer nav { display: flex; gap: 24px; }
+  footer nav a { color: var(--ink); text-decoration: none; }
+  footer .end { justify-self: end; }
+  footer .label em { color: var(--accent); }
+
+  /* ─── MOTION ─────────────────────────────────────────────────────── */
+  @media (prefers-reduced-motion: no-preference) {
+    .js [data-rise] { opacity: 0; transform: translateY(18px); animation: rise 900ms var(--ease-out) forwards; animation-delay: calc(var(--i, 0) * 90ms + 120ms); }
+
+    .js [data-reveal] > * { opacity: 0; transform: translateY(22px); transition: opacity 800ms var(--ease-out), transform 800ms var(--ease-out); transition-delay: calc(var(--i, 0) * 75ms); }
+    .js [data-reveal].is-in > * { opacity: 1; transform: none; }
+    .js .ledger[data-rows] li { opacity: 0; transform: translateY(14px); transition: opacity 600ms var(--ease-out), transform 600ms var(--ease-out); transition-delay: calc(var(--i, 0) * 60ms + 120ms); }
+    .js .ledger[data-rows].is-in li { opacity: 1; transform: none; }
+  }
+  @keyframes rise { to { opacity: 1; transform: none; } }
+
+  /* ─── TABLET ─────────────────────────────────────────────────────── */
+  @media (max-width: 1100px) {
+    .ledger a { grid-template-columns: 2.5rem minmax(0, 1fr) 5rem; }
+    .ledger .kind { grid-column: 2; grid-row: 2; margin-top: 6px; }
+  }
+  @media (max-width: 900px) {
+    .nav { grid-template-columns: auto 1fr; height: 76px; }
+    .nav ul, .nav .right .hover-line { display: none; }
+    .nav .mark { order: -1; }
+
+    .work-grid, .about-grid, .services-cols { grid-template-columns: 1fr; gap: 40px; }
+    .preview { display: none; }
+    .facts { grid-template-columns: 1fr 1fr; }
+    .records { grid-template-columns: 1fr; }
+    .contact-row { flex-direction: column; align-items: start; }
+  }
+
+  /* ─── PHONE ──────────────────────────────────────────────────────── */
+  @media (max-width: 600px) {
+    .pill { padding: 0 16px 0 14px; gap: 10px; }
+    .sec-head { grid-template-columns: 1fr; gap: 12px; margin-bottom: 36px; }
+    .ledger-head { flex-direction: column; align-items: start; }
+    .filters { flex-wrap: wrap; margin-left: -10px; }
+    .ledger a { grid-template-columns: 2rem minmax(0, 1fr) auto; column-gap: 10px; }
+    .facts { grid-template-columns: 1fr; }
+    .rows li { grid-template-columns: 1fr; gap: 6px; }
+    .rows .eg { text-align: left; }
+    footer { grid-template-columns: 1fr; gap: 12px; }
+    footer nav { flex-wrap: wrap; gap: 8px 20px; }
+    footer .end { justify-self: start; }
   }
 </style>
 </head>
 <body>
 
-<div class="cursor" id="cursor"></div>
-<div class="cursor-ring" id="cursorRing"></div>
-
-<nav>
-  <a href="#" class="logo">RYAN<span>.</span>BANSAL</a>
-  <ul class="nav-links">
-    <li><a href="#work">Work</a></li>
-    <li><a href="#about">About</a></li>
-    <li><a href="#services">Services</a></li>
-    <li><a href="#contact">Contact</a></li>
+<nav class="nav" aria-label="Main">
+  <ul>
+    <li><a class="hover-line" href="#work">Work</a></li>
+    <li><a class="hover-line" href="#about">About</a></li>
+    <li><a class="hover-line" href="#services">Services</a></li>
   </ul>
-  <a href="https://instagram.com/bansal_ryan" target="_blank" class="nav-ig">@bansal_ryan</a>
+  <a href="#top" class="mark" aria-label="Take One, back to top"></a>
+  <div class="right">
+    <a class="hover-line" href="https://instagram.com/bansal_ryan" target="_blank" rel="noopener">Instagram</a>
+    <a class="pill" href="mailto:bansal.ryan77@gmail.com?subject=Filming%20enquiry&body=Hi%20Ryan%2C%0A%0AWhat%20I%27d%20like%20filmed%3A%0AWhen%20and%20where%3A%0A">
+      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M2 8h11M9 4l4 4-4 4"/></svg>Book a shoot
+    </a>
+  </div>
 </nav>
 
-<section class="hero">
-  <div class="hero-bg"></div>
-  <div class="hero-noise"></div>
-  <div class="scroll-line"><span>Scroll</span><div class="line"></div></div>
-  <p class="hero-eyebrow">Sports Videographer · Sydney, Australia</p>
-  <h1 class="hero-title">FRAME<br><span class="outline">EVERY</span><br>MOMENT.</h1>
-  <div class="hero-sub">
-    <p class="hero-desc">Short &amp; long form content for athletes, teams and brands. Using the gift of craft to tell stories that matter.</p>
-    <a href="#work" class="hero-cta">View Work <span class="arrow"></span></a>
+<header class="hero" id="top">
+  <div class="ghost" aria-hidden="true">TAKE ONE</div>
+  <div class="title">
+    <h1 data-text="TAKE//ONE">TAKE<i>//</i>ONE</h1>
+    <p>Sports films by Ryan Bansal<br>for athletes, teams and brands</p>
   </div>
-</section>
+  <a class="explore" href="#work">
+    Explore
+    <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M10 2v15M4 11l6 6 6-6"/></svg>
+  </a>
+</header>
 
-<div class="marquee-wrap">
-  <div class="marquee-track">
-    <span class="marquee-item">Sports Videography</span><span class="marquee-item accent">✦</span>
-    <span class="marquee-item">Short Form Content</span><span class="marquee-item accent">✦</span>
-    <span class="marquee-item">Brand Films</span><span class="marquee-item accent">✦</span>
-    <span class="marquee-item">Athlete Reels</span><span class="marquee-item accent">✦</span>
-    <span class="marquee-item">Team Highlights</span><span class="marquee-item accent">✦</span>
-    <span class="marquee-item">Long Form Documentary</span><span class="marquee-item accent">✦</span>
-    <span class="marquee-item">Sports Videography</span><span class="marquee-item accent">✦</span>
-    <span class="marquee-item">Short Form Content</span><span class="marquee-item accent">✦</span>
-    <span class="marquee-item">Brand Films</span><span class="marquee-item accent">✦</span>
-    <span class="marquee-item">Athlete Reels</span><span class="marquee-item accent">✦</span>
-    <span class="marquee-item">Team Highlights</span><span class="marquee-item accent">✦</span>
-    <span class="marquee-item">Long Form Documentary</span><span class="marquee-item accent">✦</span>
-  </div>
-</div>
-
-<div class="trusted">
-  <span class="trusted-label">Trusted By</span>
-  <div class="trusted-divider"></div>
-  <div class="trusted-logos">
-    <img src="assets/sydney-fc.png" alt="Sydney FC" class="trusted-logo">
-    <img src="assets/sydney-kings.png" alt="Sydney Kings" class="trusted-logo">
-    <img src="assets/westfield.png" alt="Westfield" class="trusted-logo">
-    <img src="assets/street-industries.png" alt="Street Industries" class="trusted-logo">
-  </div>
-</div>
-
-<section class="section" id="work">
-  <div class="section-header fade-in-section">
-    <div><p class="section-label">Selected Work</p><h2 class="section-title">THE REEL</h2></div>
-    <span class="section-count">Instagram · @bansal_ryan</span>
-  </div>
-
-  <div class="video-grid fade-in-section" id="videoGrid">
-    <!-- Cards injected by JS -->
-  </div>
-
-  <div class="ig-bar fade-in-section">
-    <p>Thumbnails pulled live from <strong>@bansal_ryan</strong> via Instagram Open Graph metadata.</p>
-    <a href="https://instagram.com/bansal_ryan" target="_blank">View Instagram ↗</a>
-  </div>
-</section>
-
-<section class="about fade-in-section" id="about">
-  <div class="about-visual">
-    <div class="about-accent-bar"></div>
-    <div class="about-inner-visual"><span class="about-initials">RB</span></div>
-  </div>
-  <div class="about-content">
-    <p class="section-label label">About</p>
-    <h2>CREATED TO<br>CREATE.</h2>
-    <p>I'm Ryan Bansal — a sports videographer based in Sydney, Australia. I believe every person has a story worth telling, and that the camera is one of the most powerful tools to tell it.</p>
-    <p>Driven by faith and a love for the game, I craft content for athletes, teams and brands that goes beyond the highlight — capturing the purpose behind the pursuit.</p>
-    <div class="stats">
-      <div><div class="stat-num">50+</div><div class="stat-label">Projects</div></div>
-      <div><div class="stat-num">∞</div><div class="stat-label">Stories Told</div></div>
-      <div><div class="stat-num">4K</div><div class="stat-label">Production</div></div>
+<main class="sheet">
+  <section class="section work" id="work">
+    <div class="sec-head" data-reveal>
+      <span class="num" aria-hidden="true">01</span>
+      <p class="label code">// Work</p>
     </div>
-  </div>
-</section>
 
-<section class="section fade-in-section" id="services">
-  <div class="section-header">
-    <div><p class="section-label">What I Do</p><h2 class="section-title">SERVICES</h2></div>
-  </div>
-  <div class="services-grid">
-    <div class="service-card"><div class="service-num">01</div><div class="service-title">Short Form Content</div><p class="service-desc">Reels, TikToks, and social clips engineered for maximum impact. Built for the scroll.</p></div>
-    <div class="service-card"><div class="service-num">02</div><div class="service-title">Athlete Highlights</div><p class="service-desc">Personal highlight reels that get athletes noticed — by scouts, fans, and brands.</p></div>
-    <div class="service-card"><div class="service-num">03</div><div class="service-title">Team Coverage</div><p class="service-desc">Game day footage, season recaps, and behind-the-scenes team content.</p></div>
-    <div class="service-card"><div class="service-num">04</div><div class="service-title">Brand Campaigns</div><p class="service-desc">Sport-first brand films and campaign content that connects with active audiences.</p></div>
-    <div class="service-card"><div class="service-num">05</div><div class="service-title">Long Form Docs</div><p class="service-desc">Full documentary-style productions that go deep on stories worth telling.</p></div>
-    <div class="service-card"><div class="service-num">06</div><div class="service-title">Event Coverage</div><p class="service-desc">Tournaments, launches, activations — captured and cut for immediate impact.</p></div>
-  </div>
-</section>
+    <div class="work-grid">
+      <div>
+        <div class="ledger-head" data-reveal>
+          <h2 class="display h2">Selected<br>films</h2>
+          <div class="filters" role="group" aria-label="Filter films">
+            <button type="button" aria-pressed="true" data-filter="all">All</button>
+            <button type="button" aria-pressed="false" data-filter="football">Football</button>
+            <button type="button" aria-pressed="false" data-filter="basketball">Basketball</button>
+            <button type="button" aria-pressed="false" data-filter="brand">Brand</button>
+          </div>
+        </div>
 
-<div class="quote-block">
-  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" style="opacity:0.12; display:block; margin:0 auto 20px;">
-    <line x1="8" y1="0" x2="8" y2="16" stroke="#e8ff3c" stroke-width="1.5"/>
-    <line x1="1" y1="5" x2="15" y2="5" stroke="#e8ff3c" stroke-width="1.5"/>
-  </svg>
-  <p style="font-family:'Bebas Neue',sans-serif; font-size:clamp(18px,2.5vw,28px); letter-spacing:0.15em; color:rgba(242,240,235,0.55); text-transform:uppercase; line-height:1.6; max-width:700px; margin:0 auto;">
-    "Whatever you do, work at it with all your heart"
-  </p>
-  <p style="font-size:10px; letter-spacing:0.2em; text-transform:uppercase; color:rgba(242,240,235,0.4); margin-top:12px;">Colossians 3:23</p>
-</div>
+        <ol class="ledger" id="ledger" data-rows>
+          <li style="--i:0" data-sport="football">
+            <a href="https://www.instagram.com/p/DQThzbQAq3F/" target="_blank" rel="noopener" data-img="assets/work/DQThzbQAq3F.jpg" data-note="927 likes">
+              <span class="name">Sydney FC, Game 2</span><span class="kind">Match-day film</span><span class="date">10.25</span>
+            </a>
+          </li>
+          <li style="--i:1" data-sport="football">
+            <a href="https://www.instagram.com/p/DX0UZotStLm/" target="_blank" rel="noopener" data-img="assets/work/DX0UZotStLm.jpg" data-note="Posted by Sydney FC">
+              <span class="name">Target locked</span><span class="kind">Sydney FC social</span><span class="date">05.26</span>
+            </a>
+          </li>
+          <li style="--i:2" data-sport="football brand">
+            <a href="https://www.instagram.com/p/DXJPcDqPgZx/" target="_blank" rel="noopener" data-img="assets/work/DXJPcDqPgZx.jpg" data-note="Street Industries">
+              <span class="name">Street Sports Festival</span><span class="kind">Event promo</span><span class="date">04.26</span>
+            </a>
+          </li>
+          <li style="--i:3" data-sport="basketball">
+            <a href="https://www.instagram.com/p/DPARVyWEmXc/" target="_blank" rel="noopener" data-note="Watch on Instagram">
+              <span class="name">Melbourne Phoenix</span><span class="kind">Basketball</span><span class="date">2025</span>
+            </a>
+          </li>
+          <li style="--i:4" data-sport="basketball brand">
+            <a href="https://www.instagram.com/p/DLzoXC8iKgq/" target="_blank" rel="noopener" data-img="assets/work/DLzoXC8iKgq.jpg" data-note="40K likes">
+              <span class="name">Anthony Edwards × The Prowler</span><span class="kind">Spec ad, NBA × Spider-Verse</span><span class="date">07.25</span>
+            </a>
+          </li>
+          <li style="--i:5" data-sport="brand">
+            <a href="https://www.instagram.com/p/DTdW0-TApUw/" target="_blank" rel="noopener" data-img="assets/work/DTdW0-TApUw.jpg" data-note="860 likes">
+              <span class="name">Cars, Tartan</span><span class="kind">Edit</span><span class="date">01.26</span>
+            </a>
+          </li>
+          <li style="--i:6" data-sport="brand">
+            <a href="https://www.instagram.com/p/DIA3x7FiBCK/" target="_blank" rel="noopener" data-img="assets/work/DIA3x7FiBCK.jpg" data-note="Shot on iPhone">
+              <span class="name">Find Your Greatness</span><span class="kind">Spec ad, Nike</span><span class="date">04.25</span>
+            </a>
+          </li>
+        </ol>
+      </div>
 
-<section class="contact fade-in-section" id="contact">
-  <p class="section-label contact-label">Get In Touch</p>
-  <h2>LET'S<br><span class="outline">CREATE</span><br>TOGETHER.</h2>
-  <div class="contact-links">
-    <a href="mailto:Bansal.ryan77@gmail.com" class="contact-btn primary">Send an Email</a>
-    <a href="https://instagram.com/bansal_ryan" target="_blank" class="contact-btn secondary">DM on Instagram</a>
-  </div>
-</section>
+      <figure class="preview brackets" id="preview">
+        <div class="frame">
+          <img alt="Frame from the selected film" src="assets/work/DQThzbQAq3F.jpg" width="640" height="360">
+          <p class="tag label"></p>
+        </div>
+      </figure>
+    </div>
+  </section>
 
-<footer>
-  <a href="#" class="logo">RYAN<span>.</span>BANSAL</a>
-  <div style="display:flex; flex-direction:column; align-items:center; gap:6px;">
-    <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg" style="opacity:0.2;">
-      <line x1="7" y1="0" x2="7" y2="14" stroke="#f2f0eb" stroke-width="1.5"/>
-      <line x1="1" y1="4.5" x2="13" y2="4.5" stroke="#f2f0eb" stroke-width="1.5"/>
-    </svg>
-    <p style="font-size:9px; letter-spacing:0.15em; color:rgba(242,240,235,0.15);">Col 3:23</p>
-  </div>
-  <p>© 2026 · Sports Videography · Sydney, Australia</p>
+  <section class="section about" id="about" aria-label="About">
+    <div class="sec-head" data-reveal>
+      <span class="num" aria-hidden="true">02</span>
+      <p class="label code">// About</p>
+    </div>
+
+    <div class="about-grid">
+      <div data-reveal>
+        <h2 class="display about-title">The story<br>behind<br>the play.</h2>
+      </div>
+      <div data-reveal>
+        <div class="bio">
+          <p>Every player has a story worth telling.</p>
+          <p>I film the purpose behind the pursuit, <q>with all my heart.</q></p>
+        </div>
+        <div class="records">
+          <div>
+            <h3 class="label">Worked with</h3>
+            <ul>
+              <li><span>Sydney FC</span><span>Football</span></li>
+              <li><span>Sydney Kings</span><span>Basketball</span></li>
+              <li><span>Westfield</span><span>Retail</span></li>
+              <li><span>Street Industries</span><span>Events</span></li>
+            </ul>
+          </div>
+          <div>
+            <h3 class="label">On Instagram</h3>
+            <ul>
+              <li><span>Spider-Verse × NBA</span><span>40K likes</span></li>
+              <li><span>Sydney FC, Game 2</span><span>927 likes</span></li>
+              <li><span>Cars, Tartan</span><span>860 likes</span></li>
+              <li><span>Target locked</span><span>438 likes</span></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="services">
+    <div class="sec-head" data-reveal>
+      <span class="num" aria-hidden="true">03</span>
+      <p class="label code">// Services</p>
+    </div>
+    <h2 class="display h2" style="margin-bottom: 40px" data-reveal><span>What I make</span></h2>
+    <div class="services-cols" data-reveal>
+      <div>
+        <p class="group label"><span>Short form</span></p>
+        <ul class="rows">
+          <li><span class="what">Reels and social clips</span><span class="eg label">e.g. <a class="link" href="https://www.instagram.com/p/DTdW0-TApUw/" target="_blank" rel="noopener">Cars, Tartan</a></span></li>
+          <li><span class="what">Athlete highlights</span><span class="eg label">e.g. <a class="link" href="https://www.instagram.com/p/DLzoXC8iKgq/" target="_blank" rel="noopener">Anthony Edwards</a></span></li>
+          <li><span class="what">Team coverage</span><span class="eg label">e.g. <a class="link" href="https://www.instagram.com/p/DQThzbQAq3F/" target="_blank" rel="noopener">Sydney FC</a></span></li>
+        </ul>
+      </div>
+      <div>
+        <p class="group label"><span>Long form</span></p>
+        <ul class="rows">
+          <li><span class="what">Brand campaigns</span><span class="eg label">e.g. <a class="link" href="https://www.instagram.com/p/DIA3x7FiBCK/" target="_blank" rel="noopener">Nike spec</a></span></li>
+          <li><span class="what">Event coverage</span><span class="eg label">e.g. <a class="link" href="https://www.instagram.com/p/DXJPcDqPgZx/" target="_blank" rel="noopener">Street Sports</a></span></li>
+          <li><span class="what">Documentaries</span><span class="eg label">On request</span></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="contact" id="contact" aria-label="Contact" data-reveal>
+    <p class="contact-big" aria-hidden="true">Let's film</p>
+    <div class="ruler" style="margin-top: 28px" aria-hidden="true"></div>
+    <div class="contact-row">
+      <p>Got a game or launch coming up?</p>
+      <div class="contact-actions">
+        <a class="button" href="mailto:bansal.ryan77@gmail.com?subject=Filming%20enquiry&body=Hi%20Ryan%2C%0A%0AWhat%20I%27d%20like%20filmed%3A%0AWhen%20and%20where%3A%0A">Email Ryan</a>
+        <a class="chip" href="https://instagram.com/bansal_ryan" target="_blank" rel="noopener">Instagram</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="label">
+  <span>Take//One · Ryan Bansal, Sydney</span>
+  <nav aria-label="Footer">
+    <a class="link" href="#work">Work</a>
+    <a class="link" href="https://instagram.com/bansal_ryan" target="_blank" rel="noopener">Instagram</a>
+    <a class="link" href="mailto:bansal.ryan77@gmail.com">Email</a>
+  </nav>
+  <span class="end">© 2026 · <em>Colossians 3:23</em></span>
 </footer>
 
 <script>
-// ─── CONFIG: your posts ───────────────────────────────────────────────
-const POSTS = [
-  { url: 'https://www.instagram.com/p/DQThzbQAq3F/', tag: 'Football',    title: 'On The Ball' },
-  { url: 'https://www.instagram.com/p/DLzoXC8iKgq/', tag: 'Short Form',  title: 'Full Send' },
-  { url: 'https://www.instagram.com/p/DX0UZotStLm/', tag: 'Match Day',   title: 'Sydney · 27.10.25' },
-  { url: 'https://www.instagram.com/p/DTdW0-TApUw/', tag: 'Event',       title: 'Street Sports Festival' },
-  { url: 'https://www.instagram.com/p/DXJPcDqPgZx/', tag: 'Brand',       title: 'Spiderverse x NBA' },
-  { url: 'https://www.instagram.com/p/DIA3x7FiBCK/', tag: 'Athlete',     title: 'The Ones' },
-  { url: 'https://www.instagram.com/p/DPARVyWEmXc/', tag: 'Basketball',  title: 'Melbourne Phoenix' },
-];
-
-// ─── BUILD SKELETON CARDS ─────────────────────────────────────────────
-const grid = document.getElementById('videoGrid');
-
-POSTS.forEach((post, i) => {
-  const card = document.createElement('a');
-  card.className = 'video-card';
-  card.href = post.url;
-  card.target = '_blank';
-  card.dataset.index = i;
-  card.innerHTML = `
-    <div class="video-skeleton">
-      <svg class="skeleton-icon" width="32" height="32" viewBox="0 0 32 32" fill="none">
-        <rect x="2" y="2" width="28" height="28" rx="2" stroke="white" stroke-width="1.5"/>
-        <polygon points="12,10 24,16 12,22" fill="white"/>
-      </svg>
-    </div>
-    <div class="play-badge">
-      <svg width="10" height="12" viewBox="0 0 10 12" fill="none">
-        <path d="M1 1L9 6L1 11V1Z" fill="rgba(242,240,235,0.8)"/>
-      </svg>
-    </div>
-    <div class="video-overlay">
-      <div class="video-meta">
-        <span class="video-tag">${post.tag}</span>
-        <span class="video-title">${post.title}</span>
-      </div>
-    </div>
-  `;
-  grid.appendChild(card);
+// ─── Reveal each section's parts once, in reading order ──────────────
+const io = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('is-in'); io.unobserve(e.target); } });
+}, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
+document.querySelectorAll('[data-reveal], [data-rows]').forEach(el => {
+  [...el.children].forEach((c, i) => { if (!c.style.getPropertyValue('--i')) c.style.setProperty('--i', i); });
+  io.observe(el);
 });
 
-// ─── FETCH OG THUMBNAILS VIA MICROLINK ───────────────────────────────
-async function fetchThumbnail(post, index) {
-  const apiUrl = `https://api.microlink.io/?url=${encodeURIComponent(post.url)}&screenshot=false`;
+// ─── The shoot log: each row loads its frame into the monitor ───────
+const ledger = document.getElementById('ledger');
+const preview = document.getElementById('preview');
+const pImg = preview.querySelector('img');
+const pTag = preview.querySelector('.tag');
 
-  try {
-    const res = await fetch(apiUrl);
-    const data = await res.json();
-
-    if (data.status === 'success' && data.data) {
-      const rawUrl = data.data.image && data.data.image.url;
-
-      if (rawUrl) {
-        const card = grid.querySelector(`[data-index="${index}"]`);
-        const skeleton = card.querySelector('.video-skeleton');
-        const img = document.createElement('img');
-        img.className = 'video-thumb';
-        img.alt = post.title;
-        img.src = `https://images.weserv.nl/?url=${encodeURIComponent(rawUrl)}`;
-        img.onload = () => { skeleton.replaceWith(img); };
-        img.onerror = () => showError(card);
-      } else {
-        showError(grid.querySelector(`[data-index="${index}"]`));
-      }
-    }
-  } catch (err) {
-    showError(grid.querySelector(`[data-index="${index}"]`));
-  }
+function show(a) {
+  ledger.querySelectorAll('a').forEach(x => x.classList.toggle('is-active', x === a));
+  ledger.classList.add('is-hovering');
+  if (a.dataset.img) { pImg.src = a.dataset.img; pImg.hidden = false; } else { pImg.hidden = true; }
+  pTag.textContent = a.querySelector('.name').textContent + ' · ' + (a.dataset.note || '');
+  pImg.alt = 'Frame from ' + a.querySelector('.name').textContent;
 }
-
-function showError(card) {
-  const skeleton = card.querySelector('.video-skeleton');
-  if (skeleton) {
-    skeleton.innerHTML = `
-      <div class="video-error">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-          <rect x="2" y="2" width="20" height="20" rx="2" stroke="rgba(242,240,235,0.2)" stroke-width="1.5"/>
-          <path d="M8 12h8M12 8v8" stroke="rgba(242,240,235,0.2)" stroke-width="1.5"/>
-        </svg>
-        <span>Open on Instagram</span>
-      </div>
-    `;
-    skeleton.className = '';
-  }
+function hide() {
+  show(ledger.querySelector('li:not([hidden]) a') || ledger.querySelector('a'));
+  ledger.classList.remove('is-hovering');
+  ledger.querySelectorAll('a').forEach(x => x.classList.remove('is-active'));
 }
-
-// Stagger fetches so we don't hammer the API
-POSTS.forEach((post, i) => {
-  setTimeout(() => fetchThumbnail(post, i), i * 300);
+ledger.querySelectorAll('a').forEach(a => {
+  a.addEventListener('mouseenter', () => show(a));
+  a.addEventListener('focus', () => show(a));
+  a.addEventListener('blur', hide);
 });
+ledger.addEventListener('mouseleave', hide);
+hide();
 
-// ─── CURSOR ───────────────────────────────────────────────────────────
-const cursor = document.getElementById('cursor');
-const ring = document.getElementById('cursorRing');
-let mx = 0, my = 0, rx = 0, ry = 0;
-document.addEventListener('mousemove', e => {
-  mx = e.clientX; my = e.clientY;
-  cursor.style.left = mx + 'px';
-  cursor.style.top = my + 'px';
+// ─── Filters ─────────────────────────────────────────────────────────
+document.querySelectorAll('.filters button').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const f = btn.dataset.filter;
+    document.querySelectorAll('.filters button').forEach(b => b.setAttribute('aria-pressed', b === btn));
+    ledger.querySelectorAll('li').forEach(li => {
+      li.hidden = f !== 'all' && !li.dataset.sport.split(' ').includes(f);
+    });
+    hide();
+  });
 });
-(function animateRing() {
-  rx += (mx - rx) * 0.12;
-  ry += (my - ry) * 0.12;
-  ring.style.left = rx + 'px';
-  ring.style.top = ry + 'px';
-  requestAnimationFrame(animateRing);
-})();
-
-// ─── SCROLL REVEAL ────────────────────────────────────────────────────
-const observer = new IntersectionObserver(entries => {
-  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
-}, { threshold: 0.1 });
-document.querySelectorAll('.fade-in-section').forEach(el => observer.observe(el));
 </script>
 </body>
 </html>
